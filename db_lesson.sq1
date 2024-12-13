@@ -1,29 +1,27 @@
 Q1
 
-create table `departments`(
-  `department_id` int unsigned not null auto_increment Primary key,
-  `name` VARCHAR(20) not null,
-  `created_at` timestamp default current_timestamp,
-  `updated_at` timestamp default current_timestamp on update current_timestamp
+CREATE TABLE `departments`(
+  `department_id` INT UNSIGNED NOT NULL auto_increment PRIMARY KEY,
+  `name` VARCHAR(20) NOT NULL,
+  `created_at` timestamp DEFAULT current_timestamp,
+  `updated_at` timestamp DEFAULT current_timestamp ON UPDATE current_timestamp
 );
 
 Q2
-alter table `people` add `department-id` int unsigned after `email`;
+ALTER TABLE `people` ADD `department_id` INT UNSIGNED AFTER `email`;
 
 Q3
 
-department,people,reportsそれぞれに合う条件を追加
-
-insert into `departments` (name)
-values
+INSERT INTO `departments` (name)
+VALUES
 ("営業"),
 ("開発"),
 ("経理"),
 ("人事"),
 ("情報システム");
 
-insert into `people` (name, department_id, age, gender)
-values
+INSERT INTO `people` (name, department_id, age, gender)
+VALUES
 ("鈴木一郎", 1, 31, 1),
 ("鈴木二郎", 1, 42, 1),
 ("鈴木三郎", 1, 50, 1),
@@ -35,26 +33,28 @@ values
 ("森田九郎", 4, 44, 1),
 ("石田十郎", 5, 39, 1);
 
-Update reports set content = "これはにっぽうですその1" where report_id = 1;
-Update reports set content = "これはにっぽうですその2" where report_id = 2;
-Update reports set content = "これはにっぽうですその3" where report_id = 3;
-Update reports set content = "これはにっぽうですその4" where report_id = 4;
-Update reports set content = "これはにっぽうですその5" where report_id = 5;
-Update reports set content = "これはにっぽうですその6" where report_id = 6;
-Update reports set content = "これはにっぽうですその7" where report_id = 7;
-Update reports set content = "これはにっぽうですその8" where report_id = 8;
-Update reports set content = "これはにっぽうですその9" where report_id = 9;
-Update reports set content = "これはにっぽうですその10" where report_id = 10;
+UPDATE reports SET content = "これはにっぽうですその1" WHERE report_id = 1;
+UPDATE reports SET content = "これはにっぽうですその2" WHERE report_id = 2;
+UPDATE reports SET content = "これはにっぽうですその3" WHERE report_id = 3;
+UPDATE reports SET content = "これはにっぽうですその4" WHERE report_id = 4;
+UPDATE reports SET content = "これはにっぽうですその5" WHERE report_id = 5;
+UPDATE reports SET content = "これはにっぽうですその6" WHERE report_id = 6;
+UPDATE reports SET content = "これはにっぽうですその7" WHERE report_id = 7;
+UPDATE reports SET content = "これはにっぽうですその8" WHERE report_id = 8;
+UPDATE reports SET content = "これはにっぽうですその9" WHERE report_id = 9;
+UPDATE reports SET content = "これはにっぽうですその10" WHERE report_id = 10;
 
 Q4
 
-Update people set department_id = 1 where gender =1;
-Update people set department_id = 2 where gender =2;
-Update people set department_id = 3 where person_id = 7;
+UPDATE people SET department_id = 1 WHERE gender =1;
+UPDATE people SET department_id = 2 WHERE gender =2;
+UPDATE people SET department_id = 3 WHERE person_id = 7;
 
 Q5
 
-select name, age from people where gender = 1 order by age;
+SELECT name, age
+FROM people
+WHERE gender = 1 ;
 
 Q6
 
@@ -67,48 +67,42 @@ WHERE
 ORDER BY
   `created_at`;
 
-Peopleテーブルの中からname,email,ageカラムを取り出し、その中でdeparment_idが1であるレコードをcreated_atの時間の降順に並べている。
-テーブル レコード カラム
+Peopleテーブルの中からname,email,ageカラムを取り出し、
+その中でdeparment_idが1であるレコードをcreated_atの時間の昇順に並べている。
 
 Q7
 
-select name from people where age between 20 and 29 and gender = 2 or age between 40 and 49 and gender = 1;
+SELECT name
+FROM people
+WHERE age
+BETWEEN 20 AND 29 AND gender = 2
+OR age
+BETWEEN 40 AND 49 AND gender = 1;
 
 Q8
 
-select name from people where department_id = 1 order by age asc;
+SELECT name
+FROM people
+WHERE department_id = 1
+ORDER BY age;
 
 Q9
 
-select Avg(age) AS average_age from people where gender = 2 and department_id = 2;
+SELECT AVG(age) AS average_age
+FROM people
+WHERE gender = 2 AND department_id = 2;
 
 Q10
-名前部署名提出した日報内容
-p.name , d.name, r.content
-select p.name, d.name 
-from people as p join departmentS as d on p.department_id = d.name;
 
-select * from departments join people on d.name = p.name;
-
-, r.content
-join reports as r on p.name = r.content;
-
-
-select p.name, d.name, r.content
-from people as p join departments as d on p.department_id = d.department_id
-join reports as r on p.person_id = r.person_id;
-
+SELECT p.name, d.name, r.content
+FROM people AS p JOIN departments AS d
+ON p.department_id = d.department_id
+JOIN reports AS r
+ON p.person_id = r.person_id;
 
 Q11
-日報だしてない人を出力
-p.name
 
-select p.name
-from people as p left outer join reports as r on p.person_id != r.person_id where r.person_id = NULL;
-
-
-
-reports as r on p.person_id != r.person_id where r.person_id = Null;
-
-select p.name
-from people as p left outer join reports as r on p.person_id = r.person_id where r.person_id != p.person_id;
+SELECT p.name
+FROM people AS p LEFT OUTER JOIN reports AS r
+ON p.person_id = r.person_id
+WHERE r.person_id IS NULL;
