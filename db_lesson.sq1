@@ -1,0 +1,114 @@
+Q1
+
+create table `departments`(
+  `department_id` int unsigned not null auto_increment Primary key,
+  `name` VARCHAR(20) not null,
+  `created_at` timestamp default current_timestamp,
+  `updated_at` timestamp default current_timestamp on update current_timestamp
+);
+
+Q2
+alter table `people` add `department-id` int unsigned after `email`;
+
+Q3
+
+department,people,reportsそれぞれに合う条件を追加
+
+insert into `departments` (name)
+values
+("営業"),
+("開発"),
+("経理"),
+("人事"),
+("情報システム");
+
+insert into `people` (name, department_id, age, gender)
+values
+("鈴木一郎", 1, 31, 1),
+("鈴木二郎", 1, 42, 1),
+("鈴木三郎", 1, 50, 1),
+("田中四郎", 2, 35, 1),
+("田中五郎", 2, 26, 2),
+("田中六郎", 2, 29, 2),
+("田中七郎", 2, 36, 1),
+("佐藤八郎", 3, 21, 2),
+("森田九郎", 4, 44, 1),
+("石田十郎", 5, 39, 1);
+
+Update reports set content = "これはにっぽうですその1" where report_id = 1;
+Update reports set content = "これはにっぽうですその2" where report_id = 2;
+Update reports set content = "これはにっぽうですその3" where report_id = 3;
+Update reports set content = "これはにっぽうですその4" where report_id = 4;
+Update reports set content = "これはにっぽうですその5" where report_id = 5;
+Update reports set content = "これはにっぽうですその6" where report_id = 6;
+Update reports set content = "これはにっぽうですその7" where report_id = 7;
+Update reports set content = "これはにっぽうですその8" where report_id = 8;
+Update reports set content = "これはにっぽうですその9" where report_id = 9;
+Update reports set content = "これはにっぽうですその10" where report_id = 10;
+
+Q4
+
+Update people set department_id = 1 where gender =1;
+Update people set department_id = 2 where gender =2;
+Update people set department_id = 3 where person_id = 7;
+
+Q5
+
+select name, age from people where gender = 1 order by age;
+
+Q6
+
+SELECT
+  `name`, `email`, `age`
+FROM
+  `people`
+WHERE
+  `department_id` = 1
+ORDER BY
+  `created_at`;
+
+Peopleテーブルの中からname,email,ageカラムを取り出し、その中でdeparment_idが1であるレコードをcreated_atの時間の降順に並べている。
+テーブル レコード カラム
+
+Q7
+
+select name from people where age between 20 and 29 and gender = 2 or age between 40 and 49 and gender = 1;
+
+Q8
+
+select name from people where department_id = 1 order by age asc;
+
+Q9
+
+select Avg(age) AS average_age from people where gender = 2 and department_id = 2;
+
+Q10
+名前部署名提出した日報内容
+p.name , d.name, r.content
+select p.name, d.name 
+from people as p join departmentS as d on p.department_id = d.name;
+
+select * from departments join people on d.name = p.name;
+
+, r.content
+join reports as r on p.name = r.content;
+
+
+select p.name, d.name, r.content
+from people as p join departments as d on p.department_id = d.department_id
+join reports as r on p.person_id = r.person_id;
+
+
+Q11
+日報だしてない人を出力
+p.name
+
+select p.name
+from people as p left outer join reports as r on p.person_id != r.person_id where r.person_id = NULL;
+
+
+
+reports as r on p.person_id != r.person_id where r.person_id = Null;
+
+select p.name
+from people as p left outer join reports as r on p.person_id = r.person_id where r.person_id != p.person_id;
