@@ -54,7 +54,7 @@ Q5
 
 SELECT name, age
 FROM people
-WHERE gender = 1 age;
+WHERE gender = 1 ;
 
 Q6
 
@@ -68,7 +68,7 @@ ORDER BY
   `created_at`;
 
 Peopleテーブルの中からname,email,ageカラムを取り出し、
-その中でdeparment_idが1であるレコードをcreated_atの時間の降順に並べている。
+その中でdeparment_idが1であるレコードをcreated_atの時間の昇順に並べている。
 
 Q7
 
