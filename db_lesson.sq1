@@ -85,14 +85,6 @@ select Avg(age) AS average_age from people where gender = 2 and department_id = 
 Q10
 名前部署名提出した日報内容
 p.name , d.name, r.content
-select p.name, d.name 
-from people as p join departmentS as d on p.department_id = d.name;
-
-select * from departments join people on d.name = p.name;
-
-, r.content
-join reports as r on p.name = r.content;
-
 
 select p.name, d.name, r.content
 from people as p join departments as d on p.department_id = d.department_id
@@ -104,11 +96,7 @@ Q11
 p.name
 
 select p.name
-from people as p left outer join reports as r on p.person_id != r.person_id where r.person_id = NULL;
-
-
-
-reports as r on p.person_id != r.person_id where r.person_id = Null;
+from people as p left outer join reports as r on p.person_id != r.person_id where r.person_id is NULL;
 
 select p.name
 from people as p left outer join reports as r on p.person_id = r.person_id where r.person_id != p.person_id;
